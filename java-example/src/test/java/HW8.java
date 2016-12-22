@@ -1,14 +1,17 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class LoginToAdmin {
+public class HW8 {
     private WebDriver driver;
     private String baseUrl = "http://litecart/public_html";
     private String adminUrl;
@@ -20,21 +23,18 @@ public class LoginToAdmin {
     public void setUp() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 15);
-        adminUrl = baseUrl + "/admin/";
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+        driver.get(baseUrl);
     }
 
 
     @Test
     public void testAdminLogin() {
-        driver.get(adminUrl);
-        WebElement usernameField = driver.findElement(By.xpath("//input[@name='username']"));
-        WebElement passwordField = driver.findElement(By.xpath("//input[@name='password']"));
-        WebElement loginButton = driver.findElement(By.xpath("//button[@name='login']"));
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(password);
-        loginButton.click();
+        List<WebElement> products = driver.findElements(By.cssSelector("div.image-wrapper"));
+
+        for (WebElement product : products) {
+            Assert.assertTrue(product.findElement(By.cssSelector("div[class='sticker new'],[class='sticker sale']")).isDisplayed());
+        }
     }
 
     @After
