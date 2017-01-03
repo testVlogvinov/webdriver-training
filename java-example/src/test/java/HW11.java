@@ -45,6 +45,9 @@ public class HW11 {
         driver.findElement(By.xpath("//input[@name='email']")).sendKeys(tempEmail);
         driver.findElement(By.xpath("//input[@name='password']")).sendKeys("pass");
         driver.findElement(By.xpath("//button[@name='login']")).click();
+
+        // logout
+        driver.findElement(By.xpath("//div[@id='box-account']//a[@href='http://litecart/public_html/en/logout']/../a")).click();
     }
 
 }
